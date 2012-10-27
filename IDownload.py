@@ -1,5 +1,24 @@
 '''
-Created on Jul 9, 2012
+This is a script that takes a list of OSM IDs (one per line) and clusters them into API requests in 
+groups of 50 objects to download them from an API endpoint. It then assembles them into a single .osm file.
+
+I use this when I have a SQL query that finds certain objects of interest in my pgsnapshot database but I 
+want to actually download and manipulate the data in an OSM editor. I have the query return nothing but 
+object IDs, drop those into a file and then run it through this script to download the data from my 
+local jxapi instance.
+
+It is pretty braindead and may not be suitable for all situations. Specific limitations:
+1) It straight up copies XML from the API response into the output file. This means order of object type 
+   is not guaranteed and there may also be duplicate objects. For example, if two ways share a node, 
+   that node may appear twice in the resulting .osm file, depending on if the ways were requested from 
+   the API in the same request or not.
+2) It builds the OSM XML document in memory. This limits  how many objects can be downloaded on any given 
+   system. I estimate it takes a little over 1 GB per 10,000 OSM ways but this could vary by quite a bit 
+   depending on how many nodes the ways have.
+3) I have only run this against the jxapi. It behaves a little differently than the normal API as far as 
+   returning member objects. When you request a way from the jxapi, you also get all of its member nodes. 
+   when you request a way from the osm.org API, it only returns the way with node refs but not the nodes 
+   themselves. (Same goes for relations and their members)
 
 @author: toby
 '''

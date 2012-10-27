@@ -8,4 +8,4 @@ This readme contains a short description. See comments in the script for more de
 
 IDownload.py
 ------------
-Takes a list of OSM object IDs and downloads the corrosponding objects from an API endpoint into a .osm file.
+Takes a list of OSM object IDs and downloads the corresponding objects from an API endpoint into a .osm file.
