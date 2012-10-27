@@ -72,6 +72,7 @@ if __name__ == '__main__':
     idChunks = chunks(idFile.read().splitlines(), MAX_OBJECTS)
     chunkCount = 0
     for idChunk in idChunks:
+        idChunk = map(str.strip, idChunk)
         chunkCount += 1
         print 'fetching chunk: ' + str(chunkCount)
         idStr = ','.join(idChunk)
