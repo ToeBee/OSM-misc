@@ -56,10 +56,9 @@ class Output:
 if __name__ == '__main__':
     
     MAX_OBJECTS = 50
-    APIURL = 'http://localhost:8080/xapi/api/0.6/'
         
     argParser = argparse.ArgumentParser(description="Parse OSM Changeset metadata into a database")
-    argParser.add_argument('-u', '--url', action='store', default=False, dest='apiUrl', help='URL of the API to query')
+    argParser.add_argument('-u', '--url', action='store', default='http://localhost:8080/xapi/api/0.6/', dest='apiUrl', help='URL of the API to query')
     argParser.add_argument('-f', '--file', action='store', dest='fileName', help='File containing a list of IDs to download')
     argParser.add_argument('-t', '--type', action='store', dest='type', help='OSM object type (N, W, R)')
     argParser.add_argument('-o', '--output', action='store', dest='outputFile', help='file to store the resulting data in')
@@ -83,7 +82,7 @@ if __name__ == '__main__':
             typeStr = 'ways?ways='
         elif args.type == 'R':
             typeStr = 'relations?relations='
-        url = APIURL + typeStr + idStr
+        url = args.apiUrl + typeStr + idStr
         #print url
         opener = urllib.FancyURLopener({})
         apiResponse = opener.open(url)
